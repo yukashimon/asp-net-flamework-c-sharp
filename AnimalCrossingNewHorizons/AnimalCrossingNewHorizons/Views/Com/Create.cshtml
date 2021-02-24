@@ -1,0 +1,32 @@
+﻿@model AnimalCrossingNewHorizons.Models.ComModel
+
+<h2>商品登録</h2>
+
+@using (@Html.BeginForm("Create", "Com", FormMethod.Post, new { @id = "comCreateForm" }))
+{
+    @Html.AntiForgeryToken()
+    <div class="text-danger">
+        @Html.ValidationSummary(false)
+    </div>
+    <hr />
+    <div class="form-horizontal">
+        <div class="form-group">
+            <label for="name" class="col-xs-1 control-label">@Html.DisplayNameFor(m => m.ComName)</label>
+            <div class="col-xs-11">
+                @Html.TextBoxFor(m => m.ComName, new { @class = "form-control" })
+            </div>
+        </div>
+        <div class="form-group">
+            <label for="name" class="col-xs-1 control-label">@Html.DisplayNameFor(m => m.ComDetail)</label>
+            <div class="col-xs-11">
+                @Html.TextAreaFor(m => m.ComDetail, 5, 500, new { @class = "form-control" })
+            </div>
+        </div>
+        <div class="form-group">
+            <div class="col-xs-offset-1 col-xs-11">
+                <input type="submit" value="登録" class="btn btn-primary" /> |
+                @Html.ActionLink("戻る", "Index", null, new { @class = "btn btn-primary" })
+            </div>
+        </div>
+    </div>
+}

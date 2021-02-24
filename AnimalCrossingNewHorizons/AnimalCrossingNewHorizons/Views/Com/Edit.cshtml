@@ -1,0 +1,34 @@
+﻿@model AnimalCrossingNewHorizons.Models.ComModel
+
+<h2>商品編集</h2>
+
+@using (@Html.BeginForm("Edit", "Com", FormMethod.Post, new { id = "comEditForm" }))
+{
+    @Html.AntiForgeryToken()
+    <div class="text-danger">
+        @Html.ValidationSummary(false)
+    </div>
+    <hr />
+    <div class="form-horizontal">
+        <div class="form-group">
+            <label for="name" class="col-xs-1 control-label">@Html.DisplayNameFor(m => m.ComName)</label>
+            <div class="col-xs-11">
+                @Html.TextBoxFor(m => m.ComName, new { @class = "form-control" })
+            </div>
+        </div>
+        <div class="form-group">
+            <label for="name" class="col-xs-1 control-label">@Html.DisplayNameFor(m => m.ComDetail)</label>
+            <div class="col-xs-11">
+                @Html.TextAreaFor(m => m.ComDetail, 5, 500, new { @class = "form-control" })
+            </div>
+        </div>
+        <div class="form-group">
+            <div class="col-xs-offset-1 col-xs-11">
+                <input type="submit" value="削除" name="Delete" id="comDelete" class="btn btn-danger" /> |
+                <input type="submit" value="更新" name="Save" class="btn btn-primary" /> |
+                @Html.ActionLink("戻る", "Index", null, new { @class = "btn btn-primary" })
+                @Html.HiddenFor(m => m.Com_Id)
+            </div>
+        </div>
+    </div>
+}
