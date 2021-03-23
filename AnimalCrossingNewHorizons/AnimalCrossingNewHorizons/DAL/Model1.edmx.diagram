@@ -5,8 +5,9 @@
     <!-- Diagram content (shape and connector positions) -->
     <edmx:Diagrams>
       <Diagram DiagramId="d0d6f182749e46b8b083b6b49f42c7b3" Name="Diagram1">
-        <EntityTypeShape EntityType="AnimalModel.M_USER" Width="1.5" PointX="0.75" PointY="0.75" IsExpanded="true" />
-        <EntityTypeShape EntityType="AnimalModel.T_COM" Width="1.5" PointX="3.375" PointY="0.75" />
+        <EntityTypeShape EntityType="AnimalModel.M_USER" Width="1.5" PointX="0.75" PointY="0.75" />
+        <EntityTypeShape EntityType="AnimalModel.T_COM" Width="1.5" PointX="2.75" PointY="0.75" />
+        <EntityTypeShape EntityType="AnimalModel.Customers" Width="1.5" PointX="0.75" PointY="4.75" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

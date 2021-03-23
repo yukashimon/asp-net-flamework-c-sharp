@@ -16,11 +16,17 @@ namespace AnimalCrossingNewHorizons.Controllers
         /// <returns></returns>
         public ActionResult Index()
         {
+            return View();
+        }
+
+        [HttpPost]
+        public ActionResult AjaxMethod(DTParameters param)
+        {
+
             var comModelList = new List<ComModel>();
             using (var context = new AnimalEntities())
             {
-                // DBから商品一覧取得
-                comModelList = context.T_COM.AsNoTracking()
+                IQueryable<ComModel> ListData = context.T_COM.AsNoTracking()
                                 .Where(x => x.del_flag == 0)
                                 .Select(x =>
                                 new ComModel
@@ -28,9 +34,39 @@ namespace AnimalCrossingNewHorizons.Controllers
                                     Com_Id = x.com_id,
                                     ComName = x.com_name,
                                     ComDetail = x.com_detail,
-                                }).ToList();
+                                }); // return type to be IQueryable
+
+                //take and skip record according to pagination
+                var takeData = ListData.OrderBy(q => q.Com_Id).Skip(param.Start).Take(param.Length).ToList();
+
+                if (!string.IsNullOrEmpty(param.Search.Value))
+                {
+                    var sendData = takeData.Where(p => p.Com_Id.ToString().ToLower().Contains(param.Search.Value.ToLower())
+                                   || p.ComName != null && p.ComName.ToLower().Contains(param.Search.Value.ToLower())
+                                   || p.ComDetail != null && p.ComDetail.ToLower().Contains(param.Search.Value.ToLower())).ToList();
+
+                    DTResult<ComModel> result = new DTResult<ComModel>
+                    {
+                        draw = param.Draw,
+                        data = sendData.ToList(),
+                        recordsFiltered = ListData.Count(),
+                        recordsTotal = ListData.Count(),
+                    };
+                    return Json(result);
+                }
+                else
+                {
+                    var sendData = takeData;
+                    DTResult<ComModel> result = new DTResult<ComModel>
+                    {
+                        draw = param.Draw,
+                        data = sendData.ToList(),
+                        recordsFiltered = ListData.Count(),
+                        recordsTotal = ListData.Count(),
+                    };
+                    return Json(result);
+                }
             }
-            return View(comModelList);
         }
 
         /// <summary>

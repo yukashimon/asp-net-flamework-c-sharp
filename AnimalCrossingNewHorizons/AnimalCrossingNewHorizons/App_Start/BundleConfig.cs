@@ -20,10 +20,22 @@ namespace AnimalCrossingNewHorizons
                         "~/Scripts/modernizr-*"));
 
             bundles.Add(new ScriptBundle("~/bundles/bootstrap").Include(
-                      "~/Scripts/bootstrap.js"));
+                      "~/Scripts/bootstrap.js",
+                      "~/Scripts/umd/popper.js",
+                      "~/Scripts/respond.js",
+                      "~/Scripts/DataTables/jquery.dataTables.js",
+                      "~/Scripts/DataTables/dataTables.bootstrap.js"));
+
+            bundles.Add(new ScriptBundle("~/bundles/dataTables").Include(
+                    "~/Scripts/DataTables/jquery.dataTables.js"));
+
+            bundles.Add(new StyleBundle("~/Content/dataTables").Include(
+                               "~/Content/DataTables/css/jquery.dataTables.css"));
 
             bundles.Add(new StyleBundle("~/Content/css").Include(
+                "~/Content/index.css",
                       "~/Content/bootstrap.css",
+                      "~/Content/DataTables/css/dataTables.bootstrap.css",
                       "~/Content/site.css"));
 
             bundles.Add(new ScriptBundle("~/bundles/common").Include(

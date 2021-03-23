@@ -27,5 +27,6 @@ namespace AnimalCrossingNewHorizons.DAL
     
         public virtual DbSet<M_USER> M_USER { get; set; }
         public virtual DbSet<T_COM> T_COM { get; set; }
+        public virtual DbSet<Customers> Customers { get; set; }
     }
 }

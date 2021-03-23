@@ -59,8 +59,7 @@ namespace AnimalCrossingNewHorizons.Controllers
         public ActionResult Logout()
         {
             FormsAuthentication.SignOut();
-            //return RedirectToAction("Auth", "Index");
-            return Json("");
+            return RedirectToAction("Auth", "Index");
         }
     }
 }

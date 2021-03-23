@@ -4,7 +4,7 @@
 @Html.ActionLink("新規登録", "Create", null, new { @class = "btn btn-warning" })
 <hr>
 
-<table class="table table-hover">
+<table class="table table-hover" id="tblCustomers">
     <thead>
         <tr>
             <th scope="col">
@@ -21,26 +21,52 @@
             </th>
         </tr>
     </thead>
-    <tbody>
-        @foreach (var m in Model)
-        {
-            <tr name="row">
-                @*商品ID*@
-                <td>
-                    @Html.DisplayFor(modelItem => m.Com_Id)
-                </td>
-                @*商品名*@
-                <td>
-                    @Html.DisplayFor(modelItem => m.ComName)
-                </td>
-                @*商品詳細*@
-                <td>
-                    @Html.DisplayFor(modelItem => m.ComDetail)
-                </td>
-                <td>
-                    @Html.ActionLink("編集", "Edit", new { id = m.Com_Id }, new { @class = "btn btn-primary" })
-                </td>
-            </tr>
-        }
-    </tbody>
 </table>
+@section scripts{
+    <link href="~/Content/DataTables/css/jquery.dataTables.css" rel="stylesheet" />
+    <script src="~/Scripts/DataTables/jquery.dataTables.js"></script>
+    <script type="text/javascript">
+  
+        $('#tblCustomers')
+            //.wrap("<div class='dataTables_borderWrap' />")   //if you are applying horizontal scrolling (sScrollX)
+            .DataTable({
+                "dom": 'lirtp',
+                "bProcessing": false,
+                "bServerSide": true,
+                "ajax": {
+                    "type": "POST",
+                    "url": '/Com/AjaxMethod',
+                    "contentType": 'application/json; charset=utf-8',
+                    'data': function (data) {
+                        return data = JSON.stringify(data);
+                    },
+                    //dataSrc: '',
+                },
+                "pagingType": "full_numbers",
+                "paging": true,
+                //"deferRender": true,
+                "columns": [
+                    { "data": "Com_Id" },
+                    { "data": "ComName" },
+                    { "data": "ComDetail" }
+                ],
+                "order": [0, "asc"],
+                bAutoWidth: false,
+                oLanguage: {
+                    /* 日本語化設定 */
+                    sLengthMenu: "表示　_MENU_　件", // 表示行数欄(例 = 表示 10 件)
+                    oPaginate: { // ページネーション欄
+                        sFirst: "<<",
+                        sNext: ">",
+                        sPrevious: "<",
+                        sLast: ">>"
+                    },
+                    sInfo: "_TOTAL_ 件中 _START_件から_END_件 を表示しています", // 現在の表示欄(例 = 100 件中 20件から30件 を表示しています)
+                    sSearch: "検索 ", // 検索欄(例 = 検索 --)
+                    sZeroRecords: "表示するデータがありません", // 表示する行がない場合
+                    sInfoEmpty: "0 件中 0件 を表示しています", // 行が表示されていない場合
+                    sInfoFiltered: "全 _MAX_ 件から絞り込み" // 検索後に総件数を表示する場合
+                }
+            });
+    </script>
+}
